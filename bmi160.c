@@ -1778,7 +1778,7 @@ int8_t bmi160_get_sensor_data(uint8_t select_sensor,
                 }
                 else
                 {
-                    rslt = get_accel_gyro_mag_data(len, accel, gyro, mag, dev);
+                    rslt = get_accel_gyro_mag_data(len, accel, gyro, mag,dev);
                 }
 
                 break;
@@ -5469,7 +5469,7 @@ static int8_t accel_self_test_positive_excitation(struct bmi160_sensor_data *acc
     {
         /* Read the data after a delay of 50ms - refer datasheet  2.8.1 accel self test*/
         dev->delay_ms(BMI160_ACCEL_SELF_TEST_DELAY);
-        rslt = bmi160_get_sensor_data(BMI160_ACCEL_ONLY, accel_pos, NULL, dev);
+        rslt = bmi160_get_sensor_data(BMI160_ACCEL_ONLY, accel_pos, NULL, NULL, dev);
     }
 
     return rslt;
@@ -5491,7 +5491,7 @@ static int8_t accel_self_test_negative_excitation(struct bmi160_sensor_data *acc
     {
         /* Read the data after a delay of 50ms */
         dev->delay_ms(BMI160_ACCEL_SELF_TEST_DELAY);
-        rslt = bmi160_get_sensor_data(BMI160_ACCEL_ONLY, accel_neg, NULL, dev);
+        rslt = bmi160_get_sensor_data(BMI160_ACCEL_ONLY, accel_neg, NULL, NULL, dev);
     }
 
     return rslt;
