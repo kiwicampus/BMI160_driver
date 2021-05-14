@@ -1693,6 +1693,7 @@ int8_t bmi160_get_power_mode(struct bmi160_pmu_status *pmu_status, const struct 
 int8_t bmi160_get_sensor_data(uint8_t select_sensor,
                               struct bmi160_sensor_data *accel,
                               struct bmi160_sensor_data *gyro,
+                              struct bmi160_sensor_data *mag,
                               const struct bmi160_dev *dev)
 {
     int8_t rslt = BMI160_OK;
@@ -1703,7 +1704,7 @@ int8_t bmi160_get_sensor_data(uint8_t select_sensor,
     /*Extract the sensor  and time select information*/
     sen_sel = select_sensor & BMI160_SEN_SEL_MASK;
     time_sel = ((sen_sel & BMI160_TIME_SEL) >> 2);
-    sen_sel = sen_sel & (BMI160_ACCEL_SEL | BMI160_GYRO_SEL);
+    sen_sel = sen_sel & (BMI160_ACCEL_SEL | BMI160_GYRO_SEL | BMX160_MAG_SEL);
     if (time_sel == 1)
     {
         len = 3;
@@ -1740,6 +1741,20 @@ int8_t bmi160_get_sensor_data(uint8_t select_sensor,
                 }
 
                 break;
+
+            case BMX160_MAG_ONLY:
+
+                /* Null-pointer check */
+                if (mag == NULL)
+                {
+                    rslt = BMI160_E_NULL_PTR;
+                }
+                else
+                {
+                    rslt = get_gyro_data(len, mag, dev);
+                }
+
+                break;
             case BMI160_BOTH_ACCEL_AND_GYRO:
 
                 /* Null-pointer check */
@@ -1753,6 +1768,21 @@ int8_t bmi160_get_sensor_data(uint8_t select_sensor,
                 }
 
                 break;
+
+            case BMX160_ACCEL_GYRO_AND_MAG:
+
+                /* Null-pointer check */
+                if ((gyro == NULL) || (accel == NULL) || (mag == NULL))
+                {
+                    rslt = BMI160_E_NULL_PTR;
+                }
+                else
+                {
+                    rslt = get_accel_gyro_mag_data(len, accel, gyro, mag, dev);
+                }
+
+                break;
+
             default:
                 rslt = BMI160_E_INVALID_INPUT;
                 break;

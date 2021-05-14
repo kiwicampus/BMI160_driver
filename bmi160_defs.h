@@ -574,7 +574,10 @@
 /* Sensor & time select definition*/
 #define BMI160_ACCEL_SEL UINT8_C(0x01)
 #define BMI160_GYRO_SEL UINT8_C(0x02)
+#define BMI160_ACCEL_GYRO_SEL UINT8_C(0x03)
 #define BMI160_TIME_SEL UINT8_C(0x04)
+#define BMX160_MAG_SEL UINT8_C(0x04)
+#define BMX160_ACCEL_GYRO_MAG_SEL UINT8_C(0x07)
 
 /* Sensor select mask*/
 #define BMI160_SEN_SEL_MASK UINT8_C(0x07)
@@ -963,7 +966,9 @@ enum bmi160_select_sensor
 {
     BMI160_ACCEL_ONLY = 1,
     BMI160_GYRO_ONLY,
-    BMI160_BOTH_ACCEL_AND_GYRO
+    BMI160_BOTH_ACCEL_AND_GYRO,
+    BMX160_MAG_ONLY,
+    BMX160_ACCEL_GYRO_AND_MAG,
 };
 
 /*!

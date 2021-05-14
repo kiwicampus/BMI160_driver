@@ -1,40 +1,40 @@
 /**
-* Copyright (c) 2020 Bosch Sensortec GmbH. All rights reserved.
-*
-* BSD-3-Clause
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright
-*    notice, this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright
-*    notice, this list of conditions and the following disclaimer in the
-*    documentation and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its
-*    contributors may be used to endorse or promote products derived from
-*    this software without specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-* FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-* COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-* INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-* (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
-* IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*
-* @file       bmi160.h
-* @date       2021-03-12
-* @version    v3.9.1
-*
-*/
+ * Copyright (c) 2020 Bosch Sensortec GmbH. All rights reserved.
+ *
+ * BSD-3-Clause
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its
+ *    contributors may be used to endorse or promote products derived from
+ *    this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * @file       bmi160.h
+ * @date       2021-03-12
+ * @version    v3.9.1
+ *
+ */
 
 /*!
  * @defgroup bmi160 BMI160
@@ -53,8 +53,8 @@ extern "C" {
 #include <bmi160_math.h>
 #else
 #include <math.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #endif
 
 /*********************** User function prototypes ************************/
@@ -82,7 +82,7 @@ extern "C" {
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_init(struct bmi160_dev *dev);
+int8_t bmi160_init(struct bmi160_dev* dev);
 
 /**
  * \ingroup bmi160
@@ -111,7 +111,7 @@ int8_t bmi160_init(struct bmi160_dev *dev);
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_get_regs(uint8_t reg_addr, uint8_t *data, uint16_t len, const struct bmi160_dev *dev);
+int8_t bmi160_get_regs(uint8_t reg_addr, uint8_t* data, uint16_t len, const struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiRegs
@@ -132,7 +132,7 @@ int8_t bmi160_get_regs(uint8_t reg_addr, uint8_t *data, uint16_t len, const stru
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_set_regs(uint8_t reg_addr, uint8_t *data, uint16_t len, const struct bmi160_dev *dev);
+int8_t bmi160_set_regs(uint8_t reg_addr, uint8_t* data, uint16_t len, const struct bmi160_dev* dev);
 
 /**
  * \ingroup bmi160
@@ -155,7 +155,7 @@ int8_t bmi160_set_regs(uint8_t reg_addr, uint8_t *data, uint16_t len, const stru
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_soft_reset(struct bmi160_dev *dev);
+int8_t bmi160_soft_reset(struct bmi160_dev* dev);
 
 /**
  * \ingroup bmi160
@@ -179,7 +179,7 @@ int8_t bmi160_soft_reset(struct bmi160_dev *dev);
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_set_sens_conf(struct bmi160_dev *dev);
+int8_t bmi160_set_sens_conf(struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiConfig
@@ -196,7 +196,7 @@ int8_t bmi160_set_sens_conf(struct bmi160_dev *dev);
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_get_sens_conf(struct bmi160_dev *dev);
+int8_t bmi160_get_sens_conf(struct bmi160_dev* dev);
 
 /**
  * \ingroup bmi160
@@ -218,7 +218,7 @@ int8_t bmi160_get_sens_conf(struct bmi160_dev *dev);
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_set_power_mode(struct bmi160_dev *dev);
+int8_t bmi160_set_power_mode(struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiPowermode
@@ -250,7 +250,7 @@ int8_t bmi160_set_power_mode(struct bmi160_dev *dev);
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_get_power_mode(struct bmi160_pmu_status *pmu_status, const struct bmi160_dev *dev);
+int8_t bmi160_get_power_mode(struct bmi160_pmu_status* pmu_status, const struct bmi160_dev* dev);
 
 /**
  * \ingroup bmi160
@@ -283,10 +283,8 @@ int8_t bmi160_get_power_mode(struct bmi160_pmu_status *pmu_status, const struct 
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_get_sensor_data(uint8_t select_sensor,
-                              struct bmi160_sensor_data *accel,
-                              struct bmi160_sensor_data *gyro,
-                              const struct bmi160_dev *dev);
+int8_t bmi160_get_sensor_data(uint8_t select_sensor, struct bmi160_sensor_data* accel, struct bmi160_sensor_data* gyro,
+                              struct bmi160_sensor_data* mag, const struct bmi160_dev* dev);
 
 /**
  * \ingroup bmi160
@@ -311,7 +309,7 @@ int8_t bmi160_get_sensor_data(uint8_t select_sensor,
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_set_int_config(struct bmi160_int_settg *int_config, struct bmi160_dev *dev);
+int8_t bmi160_set_int_config(struct bmi160_int_settg* int_config, struct bmi160_dev* dev);
 
 /**
  * \ingroup bmi160
@@ -335,7 +333,7 @@ int8_t bmi160_set_int_config(struct bmi160_int_settg *int_config, struct bmi160_
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_set_step_counter(uint8_t step_cnt_enable, const struct bmi160_dev *dev);
+int8_t bmi160_set_step_counter(uint8_t step_cnt_enable, const struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiStepC
@@ -353,7 +351,7 @@ int8_t bmi160_set_step_counter(uint8_t step_cnt_enable, const struct bmi160_dev 
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_read_step_counter(uint16_t *step_val, const struct bmi160_dev *dev);
+int8_t bmi160_read_step_counter(uint16_t* step_val, const struct bmi160_dev* dev);
 
 /**
  * \ingroup bmi160
@@ -380,7 +378,7 @@ int8_t bmi160_read_step_counter(uint16_t *step_val, const struct bmi160_dev *dev
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_aux_read(uint8_t reg_addr, uint8_t *aux_data, uint16_t len, const struct bmi160_dev *dev);
+int8_t bmi160_aux_read(uint8_t reg_addr, uint8_t* aux_data, uint16_t len, const struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiAux
@@ -401,7 +399,7 @@ int8_t bmi160_aux_read(uint8_t reg_addr, uint8_t *aux_data, uint16_t len, const 
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_aux_write(uint8_t reg_addr, uint8_t *aux_data, uint16_t len, const struct bmi160_dev *dev);
+int8_t bmi160_aux_write(uint8_t reg_addr, uint8_t* aux_data, uint16_t len, const struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiAux
@@ -419,7 +417,7 @@ int8_t bmi160_aux_write(uint8_t reg_addr, uint8_t *aux_data, uint16_t len, const
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_aux_init(const struct bmi160_dev *dev);
+int8_t bmi160_aux_init(const struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiAux
@@ -463,7 +461,7 @@ int8_t bmi160_aux_init(const struct bmi160_dev *dev);
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_set_aux_auto_mode(uint8_t *data_addr, struct bmi160_dev *dev);
+int8_t bmi160_set_aux_auto_mode(uint8_t* data_addr, struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiAux
@@ -480,7 +478,7 @@ int8_t bmi160_set_aux_auto_mode(uint8_t *data_addr, struct bmi160_dev *dev);
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_config_aux_mode(const struct bmi160_dev *dev);
+int8_t bmi160_config_aux_mode(const struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiAux
@@ -500,7 +498,7 @@ int8_t bmi160_config_aux_mode(const struct bmi160_dev *dev);
  * @retval Zero Success
  * @retval Negative Error
  */
-int8_t bmi160_read_aux_data_auto_mode(uint8_t *aux_data, const struct bmi160_dev *dev);
+int8_t bmi160_read_aux_data_auto_mode(uint8_t* aux_data, const struct bmi160_dev* dev);
 
 /**
  * \ingroup bmi160
@@ -539,7 +537,7 @@ int8_t bmi160_read_aux_data_auto_mode(uint8_t *aux_data, const struct bmi160_dev
  * @retval  BMI160_W_GYRO_SELF_TEST_FAIL    Gyro self test fail
  * @retval  BMI160_W_ACCEl_SELF_TEST_FAIL   Accel self test fail
  */
-int8_t bmi160_perform_self_test(uint8_t select_sensor, struct bmi160_dev *dev);
+int8_t bmi160_perform_self_test(uint8_t select_sensor, struct bmi160_dev* dev);
 
 /**
  * \ingroup bmi160
@@ -569,7 +567,7 @@ int8_t bmi160_perform_self_test(uint8_t select_sensor, struct bmi160_dev *dev);
  *  @retval Zero Success
  *  @retval Negative Error
  */
-int8_t bmi160_get_fifo_data(struct bmi160_dev const *dev);
+int8_t bmi160_get_fifo_data(struct bmi160_dev const* dev);
 
 /*!
  * \ingroup bmi160ApiFIFO
@@ -588,7 +586,7 @@ int8_t bmi160_get_fifo_data(struct bmi160_dev const *dev);
  *  @retval Any non zero value -> Fail
  *
  */
-int8_t bmi160_set_fifo_flush(const struct bmi160_dev *dev);
+int8_t bmi160_set_fifo_flush(const struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiFIFO
@@ -625,7 +623,7 @@ int8_t bmi160_set_fifo_flush(const struct bmi160_dev *dev);
  *  @retval Any non zero value -> Fail
  *
  */
-int8_t bmi160_set_fifo_config(uint8_t config, uint8_t enable, struct bmi160_dev const *dev);
+int8_t bmi160_set_fifo_config(uint8_t config, uint8_t enable, struct bmi160_dev const* dev);
 
 /*!
  * \ingroup bmi160ApiFIFO
@@ -698,7 +696,7 @@ int8_t bmi160_set_fifo_config(uint8_t config, uint8_t enable, struct bmi160_dev 
  *  @retval Any non zero value -> Fail
  *
  */
-int8_t bmi160_set_fifo_down(uint8_t fifo_down, const struct bmi160_dev *dev);
+int8_t bmi160_set_fifo_down(uint8_t fifo_down, const struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiFIFO
@@ -719,7 +717,7 @@ int8_t bmi160_set_fifo_down(uint8_t fifo_down, const struct bmi160_dev *dev);
  *  @retval Any non zero value -> Fail
  *
  */
-int8_t bmi160_set_fifo_wm(uint8_t fifo_wm, const struct bmi160_dev *dev);
+int8_t bmi160_set_fifo_wm(uint8_t fifo_wm, const struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiFIFO
@@ -750,7 +748,7 @@ int8_t bmi160_set_fifo_wm(uint8_t fifo_wm, const struct bmi160_dev *dev);
  *  @retval Any non zero value -> Fail
  *
  */
-int8_t bmi160_extract_accel(struct bmi160_sensor_data *accel_data, uint8_t *accel_length, struct bmi160_dev const *dev);
+int8_t bmi160_extract_accel(struct bmi160_sensor_data* accel_data, uint8_t* accel_length, struct bmi160_dev const* dev);
 
 /*!
  * \ingroup bmi160ApiFIFO
@@ -780,7 +778,7 @@ int8_t bmi160_extract_accel(struct bmi160_sensor_data *accel_data, uint8_t *acce
  *  @retval Any non zero value -> Fail
  *
  */
-int8_t bmi160_extract_gyro(struct bmi160_sensor_data *gyro_data, uint8_t *gyro_length, struct bmi160_dev const *dev);
+int8_t bmi160_extract_gyro(struct bmi160_sensor_data* gyro_data, uint8_t* gyro_length, struct bmi160_dev const* dev);
 
 /*!
  * \ingroup bmi160ApiFIFO
@@ -810,7 +808,7 @@ int8_t bmi160_extract_gyro(struct bmi160_sensor_data *gyro_data, uint8_t *gyro_l
  *  @retval Any non zero value -> Fail
  *
  */
-int8_t bmi160_extract_aux(struct bmi160_aux_data *aux_data, uint8_t *aux_len, struct bmi160_dev const *dev);
+int8_t bmi160_extract_aux(struct bmi160_aux_data* aux_data, uint8_t* aux_len, struct bmi160_dev const* dev);
 
 /**
  * \ingroup bmi160
@@ -862,9 +860,8 @@ int8_t bmi160_extract_aux(struct bmi160_aux_data *aux_data, uint8_t *aux_len, st
  *  @retval 0 -> Success
  *  @retval Any non zero value -> Fail
  */
-int8_t bmi160_start_foc(const struct bmi160_foc_conf *foc_conf,
-                        struct bmi160_offsets *offset,
-                        struct bmi160_dev const *dev);
+int8_t bmi160_start_foc(const struct bmi160_foc_conf* foc_conf, struct bmi160_offsets* offset,
+                        struct bmi160_dev const* dev);
 
 /**
  * \ingroup bmi160
@@ -888,7 +885,7 @@ int8_t bmi160_start_foc(const struct bmi160_foc_conf *foc_conf,
  *  @retval 0 -> Success
  *  @retval Any non zero value -> Fail
  */
-int8_t bmi160_get_offsets(struct bmi160_offsets *offset, const struct bmi160_dev *dev);
+int8_t bmi160_get_offsets(struct bmi160_offsets* offset, const struct bmi160_dev* dev);
 
 /*!
  * \ingroup bmi160ApiOffsets
@@ -920,9 +917,8 @@ int8_t bmi160_get_offsets(struct bmi160_offsets *offset, const struct bmi160_dev
  *  @retval 0 -> Success
  *  @retval Any non zero value -> Fail
  */
-int8_t bmi160_set_offsets(const struct bmi160_foc_conf *foc_conf,
-                          const struct bmi160_offsets *offset,
-                          struct bmi160_dev const *dev);
+int8_t bmi160_set_offsets(const struct bmi160_foc_conf* foc_conf, const struct bmi160_offsets* offset,
+                          struct bmi160_dev const* dev);
 
 /**
  * \ingroup bmi160
@@ -945,7 +941,7 @@ int8_t bmi160_set_offsets(const struct bmi160_foc_conf *foc_conf,
  *  @retval 0 -> Success
  *  @retval Any non zero value -> Fail
  */
-int8_t bmi160_update_nvm(struct bmi160_dev const *dev);
+int8_t bmi160_update_nvm(struct bmi160_dev const* dev);
 
 /**
  * \ingroup bmi160
@@ -973,9 +969,8 @@ int8_t bmi160_update_nvm(struct bmi160_dev const *dev);
  *  @retval 0 -> Success
  *  @retval Any non zero value -> Fail
  */
-int8_t bmi160_get_int_status(enum bmi160_int_status_sel int_status_sel,
-                             union bmi160_int_status *int_status,
-                             struct bmi160_dev const *dev);
+int8_t bmi160_get_int_status(enum bmi160_int_status_sel int_status_sel, union bmi160_int_status* int_status,
+                             struct bmi160_dev const* dev);
 
 /*************************** C++ guard macro *****************************/
 #ifdef __cplusplus
