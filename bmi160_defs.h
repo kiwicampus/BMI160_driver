@@ -965,10 +965,10 @@ struct bmi160_aux_fifo_data
 enum bmi160_select_sensor
 {
     BMI160_ACCEL_ONLY = 1,
-    BMI160_GYRO_ONLY,
-    BMI160_BOTH_ACCEL_AND_GYRO,
-    BMX160_MAG_ONLY,
-    BMX160_ACCEL_GYRO_AND_MAG,
+    BMI160_GYRO_ONLY = 2,
+    BMI160_BOTH_ACCEL_AND_GYRO = 3,
+    BMX160_MAG_ONLY = 4,
+    BMX160_ACCEL_GYRO_AND_MAG = 7,
 };
 
 /*!
