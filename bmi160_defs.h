@@ -274,6 +274,9 @@
 #define BMI160_LATCH_DUR_2_56_SEC UINT8_C(0x0E)
 #define BMI160_LATCHED UINT8_C(0x0F)
 
+/** BMX160 Magnetometer register */
+#define BMX160_MAG_DATA_ADDR UINT8_C(0x04)
+
 /** BMI160 Register map */
 #define BMI160_CHIP_ID_ADDR UINT8_C(0x00)
 #define BMI160_ERROR_REG_ADDR UINT8_C(0x02)

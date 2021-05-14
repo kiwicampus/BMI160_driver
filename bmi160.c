@@ -388,11 +388,11 @@ static int8_t set_gyro_pwr(struct bmi160_dev *dev);
 static int8_t get_accel_data(uint8_t len, struct bmi160_sensor_data *accel, const struct bmi160_dev *dev);
 
 /*!
- * @brief This API reads accel data along with sensor time if time is requested
+ * @brief This API reads gyro data along with sensor time if time is requested
  * by user. Kindly refer the user guide(README.md) for more info.
  *
  * @param[in] len    : len to read no of bytes
- * @param[out] gyro    : Structure pointer to store accel data
+ * @param[out] gyro    : Structure pointer to store gyro data
  * @param[in] dev       : Structure instance of bmi160_dev.
  *
  * @return Result of API execution status
@@ -401,13 +401,27 @@ static int8_t get_accel_data(uint8_t len, struct bmi160_sensor_data *accel, cons
 static int8_t get_gyro_data(uint8_t len, struct bmi160_sensor_data *gyro, const struct bmi160_dev *dev);
 
 /*!
+ * @brief This API reads mag data along with sensor time if time is requested
+ * by user. Kindly refer the user guide(README.md) for more info.
+ *
+ * @param[in] len    : len to read no of bytes
+ * @param[out] gyro    : Structure pointer to store mag data
+ * @param[in] dev       : Structure instance of bmi160_dev.
+ *
+ * @return Result of API execution status
+ * @retval zero -> Success  / -ve value -> Error
+ */
+static int8_t get_mag_data(uint8_t len, struct bmi160_sensor_data *mag, const struct bmi160_dev *dev);
+
+
+/*!
  * @brief This API reads accel and gyro data along with sensor time
  * if time is requested by user.
  * Kindly refer the user guide(README.md) for more info.
  *
  * @param[in] len    : len to read no of bytes
  * @param[out] accel    : Structure pointer to store accel data
- * @param[out] gyro    : Structure pointer to store accel data
+ * @param[out] gyro    : Structure pointer to store gyro data
  * @param[in] dev       : Structure instance of bmi160_dev.
  *
  * @return Result of API execution status
@@ -416,6 +430,26 @@ static int8_t get_gyro_data(uint8_t len, struct bmi160_sensor_data *gyro, const 
 static int8_t get_accel_gyro_data(uint8_t len,
                                   struct bmi160_sensor_data *accel,
                                   struct bmi160_sensor_data *gyro,
+                                  const struct bmi160_dev *dev);
+
+/*!
+ * @brief This API reads accel, gyro and mag data along with sensor time
+ * if time is requested by user.
+ * Kindly refer the user guide(README.md) for more info.
+ *
+ * @param[in] len       : len to read no of bytes
+ * @param[out] accel    : Structure pointer to store accel data
+ * @param[out] gyro     : Structure pointer to store gyro data
+ * @param[out] mag      : Structure pointer to store mag data
+ * @param[in] dev       : Structure instance of bmi160_dev.
+ *
+ * @return Result of API execution status
+ * @retval zero -> Success  / -ve value -> Error
+ */
+static int8_t get_accel_gyro_mag_data(uint8_t len,
+                                  struct bmi160_sensor_data *accel,
+                                  struct bmi160_sensor_data *gyro,
+                                  struct bmi160_sensor_data *mag,
                                   const struct bmi160_dev *dev);
 
 /*!
@@ -3671,7 +3705,7 @@ static int8_t get_accel_data(uint8_t len, struct bmi160_sensor_data *accel, cons
 }
 
 /*!
- * @brief This API reads accel data along with sensor time if time is requested
+ * @brief This API reads gyro data along with sensor time if time is requested
  * by user. Kindly refer the user guide(README.md) for more info.
  */
 static int8_t get_gyro_data(uint8_t len, struct bmi160_sensor_data *gyro, const struct bmi160_dev *dev)
@@ -3747,6 +3781,83 @@ static int8_t get_gyro_data(uint8_t len, struct bmi160_sensor_data *gyro, const 
 }
 
 /*!
+ * @brief This API reads mag data along with sensor time if time is requested
+ * by user. Kindly refer the user guide(README.md) for more info.
+ */
+static int8_t get_mag_data(uint8_t len, struct bmi160_sensor_data *mag, const struct bmi160_dev *dev)
+{
+    int8_t rslt;
+    uint8_t idx = 0;
+    uint8_t data_array[23] = { 0 };
+    uint8_t time_0 = 0;
+    uint16_t time_1 = 0;
+    uint32_t time_2 = 0;
+    uint8_t lsb;
+    uint8_t msb;
+    int16_t msblsb;
+
+    if (len == 0)
+    {
+        /* read mag data only */
+        rslt = bmi160_get_regs(BMX160_MAG_DATA_ADDR, data_array, 6, dev);
+        if (rslt == BMI160_OK)
+        {
+            /* Gyro Data */
+            lsb = data_array[idx++];
+            msb = data_array[idx++];
+            msblsb = (int16_t)((msb << 8) | lsb);
+            mag->x = msblsb; /* Data in X axis */
+            lsb = data_array[idx++];
+            msb = data_array[idx++];
+            msblsb = (int16_t)((msb << 8) | lsb);
+            mag->y = msblsb; /* Data in Y axis */
+            lsb = data_array[idx++];
+            msb = data_array[idx++];
+            msblsb = (int16_t)((msb << 8) | lsb);
+            mag->z = msblsb; /* Data in Z axis */
+            mag->sensortime = 0;
+        }
+        else
+        {
+            rslt = BMI160_E_COM_FAIL;
+        }
+    }
+    else
+    {
+        /* read mag sensor data along with time */
+        rslt = bmi160_get_regs(BMI160_GYRO_DATA_ADDR, data_array, 20 + len, dev);
+        if (rslt == BMI160_OK)
+        {
+            /* Gyro Data */
+            lsb = data_array[idx++];
+            msb = data_array[idx++];
+            msblsb = (int16_t)((msb << 8) | lsb);
+            mag->x = msblsb; /* mag X axis data */
+            lsb = data_array[idx++];
+            msb = data_array[idx++];
+            msblsb = (int16_t)((msb << 8) | lsb);
+            mag->y = msblsb; /* mag Y axis data */
+            lsb = data_array[idx++];
+            msb = data_array[idx++];
+            msblsb = (int16_t)((msb << 8) | lsb);
+            mag->z = msblsb; /* mag Z axis data */
+            idx = idx + 15;
+            time_0 = data_array[idx++];
+            time_1 = (uint16_t)(data_array[idx++] << 8);
+            time_2 = (uint32_t)(data_array[idx++] << 16);
+            mag->sensortime = (uint32_t)(time_2 | time_1 | time_0);
+        }
+        else
+        {
+            rslt = BMI160_E_COM_FAIL;
+        }
+    }
+
+    return rslt;
+}
+
+
+/*!
  * @brief This API reads accel and gyro data along with sensor time
  * if time is requested by user.
  *  Kindly refer the user guide(README.md) for more info.
@@ -3809,6 +3920,96 @@ static int8_t get_accel_gyro_data(uint8_t len,
         {
             accel->sensortime = 0;
             gyro->sensortime = 0;
+        }
+    }
+    else
+    {
+        rslt = BMI160_E_COM_FAIL;
+    }
+
+    return rslt;
+}
+
+/*!
+ * @brief This API reads accel and gyro data along with sensor time
+ * if time is requested by user.
+ *  Kindly refer the user guide(README.md) for more info.
+ */
+static int8_t get_accel_gyro_mag_data(uint8_t len,
+                                  struct bmi160_sensor_data *accel,
+                                  struct bmi160_sensor_data *gyro,
+                                  struct bmi160_sensor_data *mag,
+                                  const struct bmi160_dev *dev)
+{
+    int8_t rslt;
+    uint8_t idx = 0;
+    uint8_t data_array[23] = { 0 };
+    uint8_t time_0 = 0;
+    uint16_t time_1 = 0;
+    uint32_t time_2 = 0;
+    uint8_t lsb;
+    uint8_t msb;
+    int16_t msblsb;
+
+    /* read both accel and gyro sensor data
+     * along with time if requested */
+    rslt = bmi160_get_regs(BMX160_MAG_DATA_ADDR, data_array, 20 + len, dev);
+    if (rslt == BMI160_OK)
+    {
+        /* Mag Data */
+        lsb = data_array[idx++];
+        msb = data_array[idx++];
+        msblsb = (int16_t)((msb << 8) | lsb);
+        mag->x = msblsb; /* mag X axis data */
+        lsb = data_array[idx++];
+        msb = data_array[idx++];
+        msblsb = (int16_t)((msb << 8) | lsb);
+        mag->y = msblsb; /* mag Y axis data */
+        lsb = data_array[idx++];
+        msb = data_array[idx++];
+        msblsb = (int16_t)((msb << 8) | lsb);
+        mag->z = msblsb; /* mag Z axis data */
+        idx = idx + 2;
+        /* Gyro Data */
+        lsb = data_array[idx++];
+        msb = data_array[idx++];
+        msblsb = (int16_t)((msb << 8) | lsb);
+        gyro->x = msblsb; /* gyro X axis data */
+        lsb = data_array[idx++];
+        msb = data_array[idx++];
+        msblsb = (int16_t)((msb << 8) | lsb);
+        gyro->y = msblsb; /* gyro Y axis data */
+        lsb = data_array[idx++];
+        msb = data_array[idx++];
+        msblsb = (int16_t)((msb << 8) | lsb);
+        gyro->z = msblsb; /* gyro Z axis data */
+        /* Accel Data */
+        lsb = data_array[idx++];
+        msb = data_array[idx++];
+        msblsb = (int16_t)((msb << 8) | lsb);
+        accel->x = (int16_t)msblsb; /* accel X axis data */
+        lsb = data_array[idx++];
+        msb = data_array[idx++];
+        msblsb = (int16_t)((msb << 8) | lsb);
+        accel->y = (int16_t)msblsb; /* accel Y axis data */
+        lsb = data_array[idx++];
+        msb = data_array[idx++];
+        msblsb = (int16_t)((msb << 8) | lsb);
+        accel->z = (int16_t)msblsb; /* accel Z axis data */
+        if (len == 3)
+        {
+            time_0 = data_array[idx++];
+            time_1 = (uint16_t)(data_array[idx++] << 8);
+            time_2 = (uint32_t)(data_array[idx++] << 16);
+            accel->sensortime = (uint32_t)(time_2 | time_1 | time_0);
+            gyro->sensortime = (uint32_t)(time_2 | time_1 | time_0);
+            mag->sensortime = (uint32_t)(time_2 | time_1 | time_0);
+        }
+        else
+        {
+            accel->sensortime = 0;
+            gyro->sensortime = 0;
+            mag->sensortime = 0;
         }
     }
     else
