@@ -1778,7 +1778,7 @@ int8_t bmi160_get_sensor_data(uint8_t select_sensor,
                 }
                 else
                 {
-                    rslt = get_accel_gyro_mag_data(len, accel, gyro, mag,dev);
+                    rslt = get_accel_gyro_mag_data(len, accel, gyro, mag, dev);
                 }
 
                 break;
